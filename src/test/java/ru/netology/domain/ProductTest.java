@@ -12,7 +12,7 @@ class ProductTest {
 
     Product first = new Book(1, "Война и мир", 100, "Толстой");
     Product second = new Book(2, "Преступление и наказание", 200, "Достоевский");
-    Product third = new Book(3, "Капитанская дочка", 150, "Пушкин");
+    Product third = new Book(3, "Онегин", 150, "Пушкин");
     Product fourth = new Book(4, "Онегин", 120, "Пушкин");
     Product fifth = new Book(5, "Идиот", 90, "Достоевский");
     Product sixth = new Smartphone(6, "Samsung", 1000, "Samsung");
@@ -67,7 +67,7 @@ class ProductTest {
     }
 
     @Test
-    void searchByProduct() {
+    void searchByName() {
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -82,6 +82,50 @@ class ProductTest {
 
         Product[] expected = {fifth};
         Product[] actual = manager.searchBy("Идиот");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByNameIfProductIsOut() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eleventh);
+
+        manager.searchBy("один");
+
+        Product[] expected = new Product[0];
+        Product[] actual = manager.searchBy("Один");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByNameTwoProduct() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eleventh);
+
+        manager.searchBy("один");
+
+        Product[] expected = {third, fourth};
+        Product[] actual = manager.searchBy("Онегин");
 
         assertArrayEquals(expected, actual);
     }
