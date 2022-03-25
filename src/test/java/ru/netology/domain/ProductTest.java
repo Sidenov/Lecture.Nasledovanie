@@ -100,8 +100,6 @@ class ProductTest {
         manager.add(tenth);
         manager.add(eleventh);
 
-        manager.searchBy("один");
-
         Product[] expected = new Product[0];
         Product[] actual = manager.searchBy("Один");
 
@@ -122,12 +120,21 @@ class ProductTest {
         manager.add(tenth);
         manager.add(eleventh);
 
-        manager.searchBy("один");
-
         Product[] expected = {third, fourth};
         Product[] actual = manager.searchBy("Онегин");
 
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    void removeByIdIfIdNotFound1() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+
+        assertThrows(NotFoundException.class, () -> {
+            repository.removeById(20);
+        });
+    }
 }
