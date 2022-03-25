@@ -126,8 +126,9 @@ class ProductTest {
         assertArrayEquals(expected, actual);
     }
 
+    //  Проверка генерации NotFoundException
     @Test
-    void removeByIdIfIdNotFound1() {
+    void removeByIdIfIdNotFound() {
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -135,6 +136,19 @@ class ProductTest {
 
         assertThrows(NotFoundException.class, () -> {
             repository.removeById(20);
+        });
+    }
+
+    //  Проверка генерации AlreadyExistsException
+    @Test
+    void addProductIfIdAlreadyExists() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+
+        assertThrows(AlreadyExistsException.class, () -> {
+            repository.save(first);
         });
     }
 }
